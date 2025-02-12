@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.ScheduleRequestDto;
 import com.example.demo.dto.ScheduleResponseDto;
+import com.example.demo.dto.ScheduleUpdateRequestDto;
 import com.example.demo.dto.ScheduleWithUsernameResponseDto;
 import com.example.demo.entity.Member;
 import com.example.demo.entity.Schedule;
@@ -49,9 +50,9 @@ public class ScheduleService {
     }
 
     @Transactional
-    public ScheduleResponseDto update(Long id, ScheduleRequestDto dto) {
+    public ScheduleResponseDto update(Long id, ScheduleUpdateRequestDto dto) {
         Schedule schedule = scheduleRepository.findByIdOrElseThrow(id);
-        schedule.update(dto.getTitle(), dto.getContents());
+        schedule.update(dto.getTitle(), dto.getContents());  // 제목과 내용만 변경
         return new ScheduleResponseDto(schedule.getId(), schedule.getTitle(), schedule.getContents());
     }
 

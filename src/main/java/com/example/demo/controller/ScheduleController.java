@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.ScheduleRequestDto;
 import com.example.demo.dto.ScheduleResponseDto;
+import com.example.demo.dto.ScheduleUpdateRequestDto;
 import com.example.demo.dto.ScheduleWithUsernameResponseDto;
 import com.example.demo.entity.Schedule;
 import com.example.demo.service.ScheduleService;
@@ -47,7 +48,7 @@ public class ScheduleController {
     }
 
     @PutMapping("/{id}")
-    public ScheduleResponseDto update(@PathVariable Long id, @RequestBody ScheduleRequestDto dto) {
+    public ScheduleResponseDto update(@PathVariable Long id, @RequestBody ScheduleUpdateRequestDto dto) {
         return scheduleService.update(id, dto);
     }
 
