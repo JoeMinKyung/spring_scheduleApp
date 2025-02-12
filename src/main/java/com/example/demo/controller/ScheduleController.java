@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.ScheduleRequestDto;
 import com.example.demo.dto.ScheduleResponseDto;
+import com.example.demo.dto.ScheduleWithUsernameResponseDto;
 import com.example.demo.entity.Schedule;
 import com.example.demo.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
@@ -39,4 +40,9 @@ public class ScheduleController {
         return new ResponseEntity<>(scheduleResponseDtoList, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ScheduleWithUsernameResponseDto> findById(@PathVariable Long id) {
+        ScheduleWithUsernameResponseDto scheduleWithUsernameResponseDto = scheduleService.findById(id);
+        return new ResponseEntity<>(scheduleWithUsernameResponseDto, HttpStatus.OK);
+    }
 }

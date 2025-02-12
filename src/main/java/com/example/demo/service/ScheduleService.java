@@ -1,12 +1,15 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.ScheduleResponseDto;
+import com.example.demo.dto.ScheduleWithUsernameResponseDto;
 import com.example.demo.entity.Member;
 import com.example.demo.entity.Schedule;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -34,5 +37,12 @@ public class ScheduleService {
                 .stream()
                 .map(ScheduleResponseDto::toDto)
                 .toList();
+    }
+
+    public ScheduleWithUsernameResponseDto findById(Long id) {
+        Schedule findSchedule = scheduleRepository.findByIdOrElseThrow(id);
+        Member writer =  findSchedule.getMember();
+
+        return new ScheduleWithUsernameResponseDto(findSchedule.getTitle(), findSchedule.getContents(), writer.getUsername());
     }
 }
