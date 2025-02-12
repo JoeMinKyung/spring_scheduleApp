@@ -45,4 +45,17 @@ public class ScheduleController {
         ScheduleWithUsernameResponseDto scheduleWithUsernameResponseDto = scheduleService.findById(id);
         return new ResponseEntity<>(scheduleWithUsernameResponseDto, HttpStatus.OK);
     }
+
+    @PutMapping("/{id}")
+    public ScheduleResponseDto update(@PathVariable Long id, @RequestBody ScheduleRequestDto dto) {
+        return scheduleService.update(id, dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+
+        scheduleService.delete(id);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
