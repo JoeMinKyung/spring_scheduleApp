@@ -1,7 +1,6 @@
 package com.example.demo.service;
-import com.example.demo.dto.MemberResponseDto;
+import com.example.demo.dto.*;
 import com.example.demo.entity.Member;
-import com.example.demo.dto.SignUpResponseDto;
 import com.example.demo.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -52,4 +51,16 @@ public class MemberService {
         findMember.updatePassword(newPassword);
     }
 
+    @Transactional
+    public MemberResponseDto update(Long id, MemberUpdateRequestDto dto) {
+        Member member = memberRepository.findByIdOrElseThrow(id);
+        member.update(dto.getUsername(), dto.getEmail());  // username, email만 수정 가능
+        return new MemberResponseDto(member.getUsername(), member.getEmail());
+    }
+
+    public void delete(Long id) {
+        Member findMember = memberRepository.findByIdOrElseThrow(id);
+
+        memberRepository.delete(findMember);
+    }
 }
