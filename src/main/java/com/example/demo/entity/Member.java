@@ -1,8 +1,12 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Getter
 @Entity
+@NoArgsConstructor
 @Table(name = "member")
 public class Member extends BaseEntity {
 
@@ -18,4 +22,10 @@ public class Member extends BaseEntity {
 
     @Column(nullable = false)
     private String email;
+
+    public Member(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 }
