@@ -1,10 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.MemberResponseDto;
-import com.example.demo.dto.SignUpRequestDto;
-import com.example.demo.dto.SignUpResponseDto;
-import com.example.demo.dto.UpdatePasswordRequestDto;
+import com.example.demo.dto.*;
 import com.example.demo.service.MemberService;
+import com.example.demo.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/members")
 public class MemberController {
     private final MemberService memberService;
+    private final ScheduleService scheduleService;
 
     @PostMapping("/signup")
     public ResponseEntity<SignUpResponseDto> signUp(@RequestBody SignUpRequestDto requestDto) {
@@ -48,4 +47,12 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<MemberResponseDto> update(
+            @PathVariable Long id,
+            @RequestBody MemberUpdateRequestDto dto
+    ) {
+        MemberResponseDto responseDto = memberService.update(id, dto);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
 }
